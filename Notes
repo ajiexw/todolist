@@ -1,7 +1,6 @@
-
 项目笔记
 
-1）webpy的默认开发服务器用static来做静态文件目录，名字修改后（如修改为css）不可用。
+##1）webpy的默认开发服务器用static来做静态文件目录，名字修改后（如修改为css）不可用。
 
 2）mysql登陆错误
     > mysql -uroot -p
