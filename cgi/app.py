@@ -7,9 +7,12 @@ urls = (
     '/','Index',        
 )
 
+render = web.template.render('page/')
+
 class Index:
     def GET(self):
-        return "Hello,todo"
+        i = web.input()
+        return render.index(i.name)
 
 app = web.application(urls,globals())
 
