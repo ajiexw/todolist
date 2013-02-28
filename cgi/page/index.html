@@ -1,4 +1,4 @@
-$def with(projects, todos) 
+$def with(projects, todos, finish_todos) 
 
 <!DOCTYPE html>
 <html>
@@ -7,31 +7,56 @@ $def with(projects, todos)
         <title>TodoList</title>
         <link rel="stylesheet" href="/static/Base.css" type="text/css"/>
         <link rel="favicon icon" type="image/png" href="/static/favicon.ico" />
+        <script type="text/javascript" src="/static/jquery-1.7.1.js"></script>
+        <script type="text/javascript" src="/static/Page.js"></script>
     </head>
     <body>
         <div class="wrap">
             <div class="wrap_left left">
                 <h1>TodoList</h1>
                 <dl>
-                    <dt>所有项目</dt>
+                    <dt class="right_order">所有项目</dt>
                 $for pro in projects:
                     <dd>$pro.title</dd>
                 </dl>
+                <p class="right_order" onclick="showAddProject()">添加项目</p>
+                <form method="POST" action="/add-project" name="add-project" class="add_item hidden">
+                    <input type="text" name="title" />
+                    <br />
+                    <button class="right" type="submit">添加</button>
+                    <p class="right_order" onclick="hideAddProject()" style="margin-top:7px; font-size:13px;">取消</p>
+                </form>
             </div>
             <div class="wrap_right left">
                 <dl>
-                    <dt>Aoaola</dt>
+                    <dt>
+                        <span>Aoaola</span>
+                        <span style="font-size:12px;font-weight:normal">($len(todos)/$int(len(todos)+len(finish_todos)))</span>
+                    </dt>
                 $for todo in todos:
-                    <dd>
-                        <span class="checker"></span>
-                        <span>$todo.content</span>
+                    $ style = 'border-bottom:none' if loop.last else ''
+                    <dd style="$style">
+                        <span onclick="finishItem($todo.Itemid)" class="checker"></span>
+                        <span class="item-content">$todo.content</span>
+                        <a href="javascript:void(0);" onclick="confirmDelete($todo.Itemid)" class="del-item right hidden">删除</a>
                     </dd>
-                </ul>
-                <form method="POST" class="add_task">
-                    <textarea></textarea>
-                    <br />
+                </dl>
+
+                <form method="POST" action="/add-item" class="add_item">
+                    <input name="content" />
                     <button class="right" type="submit">添加任务</button>
                 </form>
+
+                <dl>
+                    <dt>已完成...</dt>
+                $for todo in finish_todos:
+                    $ style = 'border-bottom:none' if loop.last else ''
+                    <dd style="$style">
+                        <span onclick="unFinishItem($todo.Itemid)" class="finish checker"></span>
+                        <span class="item-content">$todo.content</span>
+                        <a href="javascript:void(0);" onclick="confirmDelete($todo.Itemid)" class="del-item right hidden">删除</a>
+                    </dd>
+                </dl>
             </div>
         </div>
     </body>
