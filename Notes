@@ -2,6 +2,7 @@
 
 1）webpy的默认开发服务器用static来做静态文件目录，名字修改后（如修改为css）不可用。
 
+
 2）mysql登陆错误
     > mysql -uroot -p
     > Enter password:
@@ -20,6 +21,7 @@
     Enter password: <输入新设的密码newpassword>
     成功。
 
+
 3）mysql错误 “ERROR 1396 (HY000): Operation CREATE USER failed” 的解决办法：
 
     mysql创建用户的时候：CREATE USER 'todolist'@'localhost' IDENTIFIED BY 'password';
@@ -30,4 +32,14 @@
     > delete from mysql.db where user = 'todolist'@'localhost';
     > flush privileges;
     重新创建用户即可成功。
+
+
+4)Ubuntu开机自启动app.py程序
+    # sudo vim /etc/rc.local
+    # 在"exit 0"前面添加：
+        cd /home/ajie/todolist/cgi
+        python app.py
+
+
+    
 
