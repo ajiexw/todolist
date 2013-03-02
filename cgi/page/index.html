@@ -1,4 +1,4 @@
-$def with(projects, todos, finish_todos) 
+$def with(projects, project, todos, finish_todos) 
 
 <!DOCTYPE html>
 <html>
@@ -15,34 +15,43 @@ $def with(projects, todos, finish_todos)
             <div class="wrap_left left">
                 <h1>TodoList</h1>
                 <dl>
-                    <dt class="right_order">所有项目</dt>
+                    <dt class="right_order hidden">所有项目</dt>
                 $for pro in projects:
-                    <dd>$pro.title</dd>
+                    $ style = 'background:#666' if pro.Projectid == project.Projectid else ''
+                    <dd>
+                        <a href="/$pro.Projectid" class="title" style="$style">$pro.title</a>
+                        <a href="javascript:void(0);" onclick="confirmDeleteProject($pro.Projectid)" class="del_project right hidden">删除</a>
+                    </dd>
                 </dl>
                 <p class="right_order" onclick="showAddProject()">添加项目</p>
                 <form method="POST" action="/add-project" name="add-project" class="add_item hidden">
                     <input type="text" name="title" />
                     <br />
                     <button class="right" type="submit">添加</button>
-                    <p class="right_order" onclick="hideAddProject()" style="margin-top:7px; font-size:13px;">取消</p>
+                    <p class="right_quit" onclick="hideAddProject()" style="margin-top:7px; font-size:13px;">取消</p>
                 </form>
             </div>
             <div class="wrap_right left">
                 <dl>
                     <dt>
-                        <span>Aoaola</span>
+                        <span>$project.title</span>
                         <span style="font-size:12px;font-weight:normal">($len(todos)/$int(len(todos)+len(finish_todos)))</span>
                     </dt>
                 $for todo in todos:
                     $ style = 'border-bottom:none' if loop.last else ''
                     <dd style="$style">
                         <span onclick="finishItem($todo.Itemid)" class="checker"></span>
-                        <span class="item-content">$todo.content</span>
-                        <a href="javascript:void(0);" onclick="confirmDelete($todo.Itemid)" class="del-item right hidden">删除</a>
+                        <span class="item_content">$todo.content</span>
+                        <a href="javascript:void(0);" onclick="confirmDeleteItem($todo.Itemid)" class="del_item right hidden">删除</a>
+                        <a href="javascript:void(0);" onclick="editItem(this, $todo.Itemid)" class="edit_item right hidden">编辑</a>
+                        <form action="/update-item/$todo.Itemid" method="POST" class="update_item add_item hidden">
+                            <input name="content" class="content" value="$todo.content" />
+                        </form>
                     </dd>
                 </dl>
 
                 <form method="POST" action="/add-item" class="add_item">
+                    <input name="Projectid" value="$project.Projectid" class="hidden" />
                     <input name="content" />
                     <button class="right" type="submit">添加任务</button>
                 </form>
@@ -54,7 +63,7 @@ $def with(projects, todos, finish_todos)
                     <dd style="$style">
                         <span onclick="unFinishItem($todo.Itemid)" class="finish checker"></span>
                         <span class="item-content">$todo.content</span>
-                        <a href="javascript:void(0);" onclick="confirmDelete($todo.Itemid)" class="del-item right hidden">删除</a>
+                        <a href="javascript:void(0);" onclick="confirmDelete($todo.Itemid)" class="del_item right hidden">删除</a>
                     </dd>
                 </dl>
             </div>
