@@ -16,6 +16,22 @@ function confirmDeleteProject(project_id){
     }
 }
 
+//编辑项目Project
+function editProject(this_project, project_id){
+    dd = $(this_project).parent();
+    $('.update_project').hide();
+    $('.project_title').show();
+    dd.children('.project_title, .edit_project, .del_project').hide();
+    dd.children('.update_project').show();
+    dd.children('.update_project').children('input.title').focus().keyup(function(){
+        if(event.keyCode==13){
+            $(this).parent().submit();
+        }
+    });
+
+
+}
+
 //删除任务item
 function confirmDeleteItem(item_id){
     if(confirm('确认删除该任务？')){
@@ -27,6 +43,7 @@ function confirmDeleteItem(item_id){
 function editItem(this_item, item_id){
     dd = $(this_item).parent();
     $('.update_item').hide();
+    $('.item_content, .checker').show();
     dd.children('.item_content, .checker, .edit_item, .del_item').hide();
     dd.children('.update_item').show();
     dd.children('.update_item').children('input.content').focus().keyup(function(){

@@ -9,12 +9,14 @@ dl dd { margin:0px; }
 
 .wrap .wrap_left { position:fixed; width:220px; height:100%; padding:10px 0px; color:#fff; background-color:#404853; border-right:1px solid #000; }
 .wrap .wrap_left h1 { font-size:32px; padding:0px 30px; }
-.wrap .wrap_left dl dd { position:relative; }
-.wrap .wrap_left dl dd a.title { display:inline-block; width:161px; color:#fff; text-decoration:none; padding:10px 30px; margin-bottom:2px; }
+.wrap .wrap_left dl dd { position:relative; overflow:hidden; }
+.wrap .wrap_left dl dd a.project_title { display:inline-block; width:161px; color:#fff; text-decoration:none; padding:10px 30px; margin-bottom:2px; }
 .wrap .wrap_left dl dd a:visited { color:#fff; }
-.wrap .wrap_left dl dd a:hover { color:#fff; background:#666; }
 .wrap .wrap_left dl dd a.del_project { background:url(del.gif) no-repeat center center; text-indent:-9999px; position:absolute; top:10px; right:8px; }
+.wrap .wrap_left dl dd a.edit_project { background:url(edit.png) no-repeat center center; text-indent:-9999px; position:absolute; top:10px; right:28px; }
 .wrap .wrap_left dl dd:hover .del_project { display:inline-block; }
+.wrap .wrap_left dl dd:hover .edit_project { display:inline-block; }
+.wrap .wrap_left dl dd:hover .project_title { color:#fff; background:#666; }
 
 .wrap .wrap_left .add_item { padding:0px 30px; }
 .wrap .wrap_left .add_item input { width:150px; height:22px; border:1px solid #ddd; padding:0px 3px; margin-bottom:5px; }

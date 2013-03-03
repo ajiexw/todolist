@@ -7,6 +7,7 @@ urls = (
     '/','Index',
     '/(\d*)','Project',
     '/add-project','AddProject', #添加项目
+    '/update-project/(\d*)','UpdateProject', #修改项目
     '/del-project/(\d*)','DelProject', #删除项目
     '/add-item','AddItem', #添加任务
     '/update-item/(\d*)','UpdateItem', #修改任务
@@ -35,6 +36,12 @@ class AddProject:
     def POST(self):
         i = web.input()
         new_id = db.insert('Project',title=i.title)
+        raise web.seeother('/')
+
+class UpdateProject:
+    def POST(self, project_id):
+        i = web.input()
+        new_id = db.update('Project', where="Projectid=%s"%(project_id), title=i.title)
         raise web.seeother('/')
 
 class DelProject:

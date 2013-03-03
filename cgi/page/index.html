@@ -19,8 +19,13 @@ $def with(projects, project, todos, finish_todos)
                 $for pro in projects:
                     $ style = 'background:#666' if pro.Projectid == project.Projectid else ''
                     <dd>
-                        <a href="/$pro.Projectid" class="title" style="$style">$pro.title</a>
+                        <a href="/$pro.Projectid" class="project_title" style="$style">$pro.title</a>
                         <a href="javascript:void(0);" onclick="confirmDeleteProject($pro.Projectid)" class="del_project right hidden">删除</a>
+                        <a href="javascript:void(0);" onclick="editProject(this, $pro.Projectid)" class="edit_project right hidden">编辑</a>
+                        <form action="/update-project/$pro.Projectid" method="POST" class="update_project add_item hidden">
+                            <input name="title" type="text" value="$pro.title" />
+                            <button class="right" type="submit">修改</button>
+                        </form>
                     </dd>
                 </dl>
                 <p class="right_order" onclick="showAddProject()">添加项目</p>
@@ -46,6 +51,7 @@ $def with(projects, project, todos, finish_todos)
                         <a href="javascript:void(0);" onclick="editItem(this, $todo.Itemid)" class="edit_item right hidden">编辑</a>
                         <form action="/update-item/$todo.Itemid" method="POST" class="update_item add_item hidden">
                             <input name="content" class="content" value="$todo.content" />
+                            <button class="right" type="submit">修改</button>
                         </form>
                     </dd>
                 </dl>
